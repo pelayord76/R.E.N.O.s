@@ -7,6 +7,19 @@ public class Robot {
 	private int puntosDeAtaque;
 	private int puntosDeDefensa;
 
+	// constructor parametrizado:
+	// el nombre será el unico atributo que se necesitara para construirlo.
+	// los puntos de vida seran siempre 100.
+	// los puntos de ataque y defensa se generaran automaticamente.
+	public Robot(String nombre) {
+
+		this.nombre = nombre;
+		this.puntosDeVida = 100;
+		this.puntosDeAtaque = (int) (Math.random() * 21);
+		this.puntosDeDefensa = (int) (Math.random() * 101);
+	}
+
+	// getters y setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -30,6 +43,9 @@ public class Robot {
 	public void setPuntosDeAtaque(int puntosDeAtaque) {
 
 		this.puntosDeAtaque = puntosDeAtaque;
+
+		// protejo los setters de puntos de ataque y defensa para que no sobrepasen los
+		// limites establecidos en el enunciado.
 
 		if (this.puntosDeAtaque <= 0) {
 			this.puntosDeAtaque = 1;
@@ -62,5 +78,4 @@ public class Robot {
 		return "Robot [Nombre=" + nombre + ", Vida=" + puntosDeVida + ", Ataque=" + puntosDeAtaque + ", Defensa="
 				+ puntosDeDefensa + "]";
 	}
-
 }

@@ -22,17 +22,8 @@ public class Start {
 		
 		*/
 		
-		Robot a = new Robot();
-		a.setNombre("Atom");
-		a.setPuntosDeVida(200);
-		a.setPuntosDeAtaque(-30);
-		a.setPuntosDeDefensa(65);
-		
-		Robot b = new Robot();
-		b.setNombre("Zeus");
-		b.setPuntosDeVida(300);
-		b.setPuntosDeAtaque(15);
-		b.setPuntosDeDefensa(80);
+		Robot a = new Robot("Atom");
+		Robot b = new Robot("Zeus");
 		
 		System.out.println(a);
 		System.out.println(b);
