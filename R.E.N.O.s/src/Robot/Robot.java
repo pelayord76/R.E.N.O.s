@@ -44,7 +44,7 @@ public class Robot {
 			int numeroA = (int) (Math.random() * 101);
 
 			// si el numero aleatorio supera la defensa rival comienza el proceso de ataque.
-			if (numeroA > otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida>0) {
+			if (numeroA > otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida > 0) {
 
 				TimeUnit.SECONDS.sleep(2);
 
@@ -67,7 +67,7 @@ public class Robot {
 
 			// en caso de que el numero no supere la defensa, no atacará y aparte se sacara
 			// un mensaje por pantalla que avise del fallo.
-			if (numeroA <= otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida>0) {
+			if (numeroA <= otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida > 0) {
 
 				TimeUnit.SECONDS.sleep(2);
 
@@ -78,7 +78,7 @@ public class Robot {
 			// se hace lo mismo con el caso del otro robot.
 			int numeroB = (int) (Math.random() * 101);
 
-			if (numeroB > this.puntosDeDefensa) {
+			if (numeroB > this.puntosDeDefensa && this.puntosDeVida > 0 && otro.puntosDeVida > 0) {
 
 				TimeUnit.SECONDS.sleep(2);
 
@@ -97,7 +97,7 @@ public class Robot {
 				System.out.println("Vida restante de " + this.nombre + ": " + this.puntosDeVida + ".");
 			}
 
-			if (numeroB <= this.puntosDeDefensa && this.puntosDeVida > 0) {
+			if (numeroB <= this.puntosDeDefensa && this.puntosDeVida > 0 && otro.puntosDeVida > 0) {
 
 				TimeUnit.SECONDS.sleep(2);
 
@@ -108,14 +108,14 @@ public class Robot {
 		// cuando la vida de uno de los dos se ponga a 0, saldrá un mensaje por pantalla
 		// que anuncie al ganador.
 		if (this.puntosDeVida <= 0) {
-			
+
 			TimeUnit.SECONDS.sleep(2);
 
 			System.out.println(this.nombre + " se ha debilitado!! " + otro.nombre + " se lleva la victoria!!");
 		}
 
 		if (otro.puntosDeVida <= 0) {
-			
+
 			TimeUnit.SECONDS.sleep(2);
 
 			System.out.println(otro.nombre + " se ha debilitado!! " + this.nombre + " se lleva la victoria!!");
