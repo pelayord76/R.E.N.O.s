@@ -1,4 +1,7 @@
-package Robot;
+package start;
+
+import Robot.Gimnasio;
+import Robot.Robot;
 
 public class Start {
 
@@ -10,7 +13,8 @@ public class Start {
 		System.out.println(a);
 		System.out.println(b);
 		
-		a.lucha(b);
+		Robot ganador = Gimnasio.lucha(a, b);
+		System.out.println(ganador);
 	}
 
 }

@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit;
 public class Robot {
 
 	private String nombre;
-	private int puntosDeVida;
-	private int puntosDeAtaque;
-	private int puntosDeDefensa;
+	protected int puntosDeVida;
+	protected int puntosDeAtaque;
+	protected int puntosDeDefensa;
 
 	// constructor parametrizado:
 	// el nombre será el unico atributo que se necesitara para construirlo.
@@ -34,74 +34,72 @@ public class Robot {
 	 *                              accion para que se pueda seguir el transcurso de
 	 *                              la pelea a una velocidad razonable.
 	 */
-	public void lucha(Robot otro) throws InterruptedException {
+	public Robot lucha(Robot otro) throws InterruptedException {
 
-		System.out.println("Va a comenzar la pelea entre " + this.nombre + " y " + otro.nombre + "!!");
+		// variable para determinar quien empieza pegando, con 0 ataca "this", con 1
+		// ataca "otro".
+		int turno = (int) (Math.random() * 2);
 
 		// el bucle se repetira hasta que uno de los dos robots se quede sin vida.
 		while (this.puntosDeVida > 0 && otro.puntosDeVida > 0) {
 
 			int numeroA = (int) (Math.random() * 101);
 
-			// si el numero aleatorio supera la defensa rival comienza el proceso de ataque.
-			if (numeroA > otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida > 0) {
+			if (turno == 0) {
+				// si el numero aleatorio supera la defensa rival comienza el proceso de ataque.
+				if (numeroA > otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida > 0) {
 
-				TimeUnit.SECONDS.sleep(2);
+					TimeUnit.SECONDS.sleep(2);
 
-				// en caso de que los puntos de ataque sean mayores a la vida restante, se le
-				// restará solo la vida que le queda al robot.
-				if (otro.puntosDeVida < this.puntosDeAtaque) {
+					// en caso de que los puntos de ataque sean mayores a la vida restante, se le
+					// restará solo la vida que le queda al robot.
+					if (otro.puntosDeVida < this.puntosDeAtaque) {
 
-					this.puntosDeAtaque = otro.puntosDeVida;
+						this.puntosDeAtaque = otro.puntosDeVida;
+					}
+
+					otro.puntosDeVida -= this.puntosDeAtaque;
+
+					TimeUnit.SECONDS.sleep(2);
+
 				}
 
-				System.out.println(this.nombre + " le ha quitado " + this.puntosDeAtaque + " puntos de vida a "
-						+ otro.nombre + "!");
-
-				otro.puntosDeVida -= this.puntosDeAtaque;
-
-				TimeUnit.SECONDS.sleep(2);
-
-				System.out.println("Vida restante de " + otro.nombre + ": " + otro.puntosDeVida + ".");
+				turno = 1;
 			}
-
 			// en caso de que el numero no supere la defensa, no atacará y aparte se sacara
 			// un mensaje por pantalla que avise del fallo.
 			if (numeroA <= otro.puntosDeDefensa && otro.puntosDeVida > 0 && this.puntosDeVida > 0) {
 
 				TimeUnit.SECONDS.sleep(2);
 
-				System.out.println(otro.nombre + " ha evitado el ataque de " + this.nombre + "!!");
-
 			}
 
 			// se hace lo mismo con el caso del otro robot.
 			int numeroB = (int) (Math.random() * 101);
 
-			if (numeroB > this.puntosDeDefensa && this.puntosDeVida > 0 && otro.puntosDeVida > 0) {
+			if (turno == 1) {
 
-				TimeUnit.SECONDS.sleep(2);
+				if (numeroB > this.puntosDeDefensa && this.puntosDeVida > 0 && otro.puntosDeVida > 0) {
 
-				if (this.puntosDeVida < otro.puntosDeAtaque) {
+					TimeUnit.SECONDS.sleep(2);
 
-					otro.puntosDeAtaque = this.puntosDeVida;
+					if (this.puntosDeVida < otro.puntosDeAtaque) {
+
+						otro.puntosDeAtaque = this.puntosDeVida;
+					}
+
+					this.puntosDeVida -= otro.puntosDeAtaque;
+
+					TimeUnit.SECONDS.sleep(2);
+
 				}
-
-				System.out.println(otro.nombre + " le ha quitado " + otro.puntosDeAtaque + " puntos de vida a "
-						+ this.nombre + "!");
-
-				this.puntosDeVida -= otro.puntosDeAtaque;
-
-				TimeUnit.SECONDS.sleep(2);
-
-				System.out.println("Vida restante de " + this.nombre + ": " + this.puntosDeVida + ".");
+				turno = 0;
 			}
 
 			if (numeroB <= this.puntosDeDefensa && this.puntosDeVida > 0 && otro.puntosDeVida > 0) {
 
 				TimeUnit.SECONDS.sleep(2);
 
-				System.out.println(this.nombre + " ha evitado el ataque de " + otro.nombre + "!!");
 			}
 		}
 
@@ -111,14 +109,15 @@ public class Robot {
 
 			TimeUnit.SECONDS.sleep(2);
 
-			System.out.println(this.nombre + " se ha debilitado!! " + otro.nombre + " se lleva la victoria!!");
+			return otro;
 		}
 
-		if (otro.puntosDeVida <= 0) {
+		else {
 
 			TimeUnit.SECONDS.sleep(2);
 
-			System.out.println(otro.nombre + " se ha debilitado!! " + this.nombre + " se lleva la victoria!!");
+			return this;
+
 		}
 	}
 
